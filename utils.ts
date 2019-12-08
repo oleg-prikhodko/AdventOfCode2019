@@ -21,3 +21,12 @@ export function* range(start: number, limit: number) {
   }
   yield count
 }
+
+export function make2d<T>(arr: T[], width: number) {
+  return arr.reduce((acc, val, index) => {
+    const idx = Math.floor(index / width)
+    if (!acc[idx]) acc[idx] = [val]
+    else acc[idx].push(val)
+    return acc
+  }, Array<Array<T>>())
+}
