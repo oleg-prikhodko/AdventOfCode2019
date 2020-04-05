@@ -30,3 +30,27 @@ export function make2d<T>(arr: T[], width: number) {
     return acc
   }, Array<Array<T>>())
 }
+
+export function readProgram(filename: string) {
+  return readInputFile(filename).split(',').map(Number)
+}
+
+export function combinations(nums: Set<number>) {
+  if (nums.size === 2) {
+    const [a, b] = nums
+    return [
+      [a, b],
+      [b, a],
+    ]
+  } else {
+    let variants: number[][] = []
+    for (const first of nums) {
+      const restNums = new Set(nums)
+      restNums.delete(first)
+      variants = variants.concat(
+        combinations(restNums).map((comb) => [first, ...comb])
+      )
+    }
+    return variants
+  }
+}
